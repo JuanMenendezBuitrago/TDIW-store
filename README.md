@@ -7,7 +7,7 @@ Añadir en local los archivos `.htaccess` y `.htpasswd` según está indicado en
 ##.htaccess
 ```
 AuthType Basic
-AuthNamen "Entrar usuari i password"
+AuthName "Entrar usuari i password"
 AuthUserFile /tdiw/tdiw-j3/public_html/.htpasswd
 Require user admin
 ```
