@@ -67,7 +67,21 @@
 	    			</ul>
 	    			<ul class="nav login">
 	    				<li><a href="#">registra't</a></li>
-	    				<li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>entra</a></li>
+	    				<li class="dropdown-toggle"><a href="#"><i class="fa fa-user" aria-hidden="true"></i>entra<i class="caret"></i></a>
+							<ul class="dropdown">
+								<form action="">
+									<div class="form-group">
+										<input type="" class="form-control" placeholder="usuari">
+									</div>
+									<div class="form-group">
+										<input type="" class="form-control" placeholder="contrasenya">
+									</div>
+									<div class="form-group">
+										<button class="button">entra</button>
+									</div>
+								</form>
+							</ul>
+	    				</li>
 	    				<li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"><span class="bubble">10</span></i>cistell</a></li>
 	    			</ul>
 	    		</div>

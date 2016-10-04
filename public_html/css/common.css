@@ -347,6 +347,14 @@ nav .dropdown{
     box-shadow: 0 6px 12px rgba(0,0,0,.175);
 }
 
+nav .login .dropdown{
+	padding-top:15px;
+}
+
+nav .login .dropdown button{
+	width: 100%;
+}
+
 nav .dropdown.show{
 	visibility: visible;
 	opacity: 1;
