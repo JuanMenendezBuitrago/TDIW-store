@@ -19,9 +19,6 @@ body.backend{
 
 .fa{
 	margin-right: 10px;
-}
-
-.fa-shopping-cart{
 	position: relative;
 }
 
@@ -72,6 +69,7 @@ body.backend{
 	float: left;
 	padding: 0 15px;
 }
+
 
 .left{
 	margin: 0px 15px 0 0;
@@ -210,6 +208,9 @@ input:focus.form-control{
 }
 
 /* items *****************************/
+ .list main > .container{
+ 	margin: 40px auto;
+ }
 
 .item{
 	margin-bottom: 15px;
@@ -219,22 +220,43 @@ input:focus.form-control{
 }
 
 .item:hover{
-	cursor: pointer;
+	// cursor: pointer;
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.item h3{
+	margin-top: 5px;
+}
+
+.item .item-footer{
+	margin: 5px -10px -10px -10px;
+	background-color: #eee;
+}
+
+.item .item-footer .fa-circle{
+	font-size: 1.5em;
+}
+
+.item .item-footer > div{
+	box-sizing: border-box;
+	padding: 10px;
+	display: inline-block;
+	width: 49%;
+}
+
+.item .item-footer > div:first-of-type{
+	text-align: center;
+}
+
+.item .item-footer > div:last-of-type{
+	text-align: right;
+	font-weight: bold;
 }
 
 .item .thumb{
 	width: 100%;
 	height:180px;
 	background-color: #eee;
-}
-
-/* icons *****************************/
-
-.glyph{
-	margin: 0 5px;
-	position: relative;
-	top:3px;
 }
 
 /* navigation bar ********************/
@@ -263,9 +285,7 @@ nav{
 	box-shadow: -2px 0 2px 2px rgba(0, 0, 0, 0.3);
 	z-index: 100;
 }
-.backend nav{
-	background-color: #eee;
-}
+
 
 nav ul.nav{
 	margin:0;
@@ -366,6 +386,14 @@ nav ul.nav .dropdown li{
 	text-align: left;
 }
 
+.backend nav{
+	background-color: #eee;
+}
+
+.backend nav .dropdown{
+	background-color: #eee;
+}
+
 /* buttons ***************************/
 
 .button{
@@ -378,6 +406,7 @@ nav ul.nav .dropdown li{
     color: white;
 	display: inline-block;
     transition: all 0.5s ease 0s;
+    cursor: pointer;
 }
 
 .button:hover{
@@ -428,6 +457,7 @@ a.button{
 }
 
 /* footer ****************************/
+
 footer{
 	font-size: 90%;
 	color: rgba(255, 255, 255, 0.7);
