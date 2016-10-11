@@ -65,7 +65,7 @@
 	    	</nav>
     	</header>
     	<main>
-	    	<div class="container">
+	    	<div class="container items">
 	    		<div class="row">
 	    			<div class="col-12">
 	    				<h1>categoria XXX</h1>
@@ -77,9 +77,12 @@
 	    					<img src="holder.js/100px200" alt="">
 	    					<h3>Lorem Ipsum</h3>
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit enim, beatae laboriosam repudiandae excepturi sed.</p>
+	    					<div class="price">€3.50</div>
 	    					<div class="item-footer">
-	    						<div class="button"><i class="fa fa-cart-plus fa-circle"><span class="bubble">10</span></i></div>
-	    						<div>€3.50</div></div>
+	    						<div class="button"><i class="fa fa-minus"></i></div>
+	    						<div class="amount">0</div>
+	    						<div class="button"><i class="fa fa-plus"></i></div>
+	    					</div>
 	    				</div>
 	    			</div>
 	    			<div class="col-4">
@@ -87,9 +90,12 @@
 	    					<img src="holder.js/100px200" alt="">
 	    					<h3>Lorem Ipsum</h3>
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt totam laborum quo culpa nisi modi.</p>
+	    					<div class="price">€3.50</div>
 	    					<div class="item-footer">
-	    						<div class="button"><i class="fa fa-cart-plus fa-circle"><span class="bubble">10</span></i></div>
-	    						<div>€3.50</div></div>
+	    						<div class="button"><i class="fa fa-minus"></i></div>
+	    						<div class="amount">0</div>
+	    						<div class="button"><i class="fa fa-plus"></i></div>
+	    					</div>
 	    				</div>
 	    			</div>
 	    			<div class="col-4">
@@ -97,9 +103,12 @@
 	    					<img src="holder.js/100px200" alt="">
 	    					<h3>Lorem Ipsum</h3>
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus reiciendis saepe dolorem accusamus impedit nostrum!</p>
+	    					<div class="price">€3.50</div>
 	    					<div class="item-footer">
-	    						<div class="button"><i class="fa fa-cart-plus fa-circle"><span class="bubble">10</span></i></div>
-	    						<div>€3.50</div></div>
+	    						<div class="button"><i class="fa fa-minus"></i></div>
+	    						<div class="amount">0</div>
+	    						<div class="button"><i class="fa fa-plus"></i></div>
+	    					</div>
 	    				</div>
 	    			</div>
 	    		</div>
@@ -109,9 +118,12 @@
 	    					<img src="holder.js/100px200" alt="">
 	    					<h3>Lorem Ipsum</h3>
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam voluptate iure ducimus, at optio, aperiam.</p>
+	    					<div class="price">€3.50</div>
 	    					<div class="item-footer">
-	    						<div class="button"><i class="fa fa-cart-plus fa-circle"><span class="bubble">10</span></i></div>
-	    						<div>€3.50</div></div>
+	    						<div class="button"><i class="fa fa-minus"></i></div>
+	    						<div class="amount">0</div>
+	    						<div class="button"><i class="fa fa-plus"></i></div>
+	    					</div>
 	    				</div>
 	    			</div>
 	    			<div class="col-4">
@@ -119,9 +131,12 @@
 	    					<img src="holder.js/100px200" alt="">
 	    					<h3>Lorem Ipsum</h3>
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias ad asperiores magnam assumenda ab, dolores?</p>
+	    					<div class="price">€3.50</div>
 	    					<div class="item-footer">
-	    						<div class="button"><i class="fa fa-cart-plus fa-circle"><span class="bubble">10</span></i></div>
-	    						<div>€3.50</div></div>
+	    						<div class="button"><i class="fa fa-minus"></i></div>
+	    						<div class="amount">0</div>
+	    						<div class="button"><i class="fa fa-plus"></i></div>
+	    					</div>
 	    				</div>
 	    			</div>
 	    			<div class="col-4">
@@ -129,9 +144,12 @@
 	    					<img src="holder.js/100px200" alt="">
 	    					<h3>Lorem Ipsum</h3>
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt a libero error mollitia quibusdam nam.</p>
+	    					<div class="price">€3.50</div>
 	    					<div class="item-footer">
-	    						<div class="button"><i class="fa fa-cart-plus fa-circle"><span class="bubble">10</span></i></div>
-	    						<div>€3.50</div></div>
+	    						<div class="button"><i class="fa fa-minus"></i></div>
+	    						<div class="amount">0</div>
+	    						<div class="button"><i class="fa fa-plus"></i></div>
+	    					</div>
 	    				</div>
 	    			</div>
 	    		</div>
@@ -141,9 +159,12 @@
 	    					<img src="holder.js/100px200" alt="">
 	    					<h3>Lorem Ipsum</h3>
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas at distinctio molestias totam tempore quidem.</p>
+	    					<div class="price">€3.50</div>
 	    					<div class="item-footer">
-	    						<div class="button"><i class="fa fa-cart-plus fa-circle"><span class="bubble">10</span></i></div>
-	    						<div>€3.50</div></div>
+	    						<div class="button"><i class="fa fa-minus"></i></div>
+	    						<div class="amount">0</div>
+	    						<div class="button"><i class="fa fa-plus"></i></div>
+	    					</div>
 	    				</div>
 	    			</div>
 	    			<div class="col-4">
@@ -151,9 +172,12 @@
 	    					<img src="holder.js/100px200" alt="">
 	    					<h3>Lorem Ipsum</h3>
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur porro, placeat! Sapiente corporis aperiam esse!</p>
+	    					<div class="price">€3.50</div>
 	    					<div class="item-footer">
-	    						<div class="button"><i class="fa fa-cart-plus fa-circle"><span class="bubble">10</span></i></div>
-	    						<div>€3.50</div></div>
+	    						<div class="button"><i class="fa fa-minus"></i></div>
+	    						<div class="amount">0</div>
+	    						<div class="button"><i class="fa fa-plus"></i></div>
+	    					</div>
 	    				</div>
 	    			</div>
 	    			<div class="col-4">
@@ -161,9 +185,12 @@
 	    					<img src="holder.js/100px200" alt="">
 	    					<h3>Lorem Ipsum</h3>
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae tempore et, nisi veritatis hic doloremque.</p>
+	    					<div class="price">€3.50</div>
 	    					<div class="item-footer">
-	    						<div class="button"><i class="fa fa-cart-plus fa-circle"><span class="bubble">10</span></i></div>
-	    						<div>€3.50</div></div>
+	    						<div class="button"><i class="fa fa-minus"></i></div>
+	    						<div class="amount">0</div>
+	    						<div class="button"><i class="fa fa-plus"></i></div>
+	    					</div>
 	    				</div>
 	    			</div>
 	    		</div>
@@ -173,9 +200,12 @@
 	    					<img src="holder.js/100px200" alt="">
 	    					<h3>Lorem Ipsum</h3>
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde itaque aliquid labore nam, voluptates minus.</p>
+	    					<div class="price">€3.50</div>
 	    					<div class="item-footer">
-	    						<div class="button"><i class="fa fa-cart-plus fa-circle"><span class="bubble">10</span></i></div>
-	    						<div>€3.50</div></div>
+	    						<div class="button"><i class="fa fa-minus"></i></div>
+	    						<div class="amount">0</div>
+	    						<div class="button"><i class="fa fa-plus"></i></div>
+	    					</div>
 	    				</div>
 	    			</div>
 	    			<div class="col-4">
@@ -183,9 +213,12 @@
 	    					<img src="holder.js/100px200" alt="">
 	    					<h3>Lorem Ipsum</h3>
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae dolorem omnis enim eos, autem dignissimos?</p>
+	    					<div class="price">€3.50</div>
 	    					<div class="item-footer">
-	    						<div class="button"><i class="fa fa-cart-plus fa-circle"><span class="bubble">10</span></i></div>
-	    						<div>€3.50</div></div>
+	    						<div class="button"><i class="fa fa-minus"></i></div>
+	    						<div class="amount">0</div>
+	    						<div class="button"><i class="fa fa-plus"></i></div>
+	    					</div>
 	    				</div>
 	    			</div>
 	    			<div class="col-4">
@@ -193,9 +226,12 @@
 	    					<img src="holder.js/100px200" alt="">
 	    					<h3>Lorem Ipsum</h3>
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, modi distinctio, corrupti necessitatibus maxime nihil?</p>
+	    					<div class="price">€3.50</div>
 	    					<div class="item-footer">
-	    						<div class="button"><i class="fa fa-cart-plus fa-circle"><span class="bubble">10</span></i></div>
-	    						<div>€3.50</div></div>
+	    						<div class="button"><i class="fa fa-minus"></i></div>
+	    						<div class="amount">0</div>
+	    						<div class="button"><i class="fa fa-plus"></i></div>
+	    					</div>
 	    				</div>
 	    			</div>
 	    		</div>
