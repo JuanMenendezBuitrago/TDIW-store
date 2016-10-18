@@ -630,6 +630,29 @@ footer a:hover{
 	color: rgba(255, 165, 0, 1);
 }
 
+/* registration page *********************************/
+
+#register main > .container > .row{
+	margin-top:  40px;
+}
+
+#register .col-4{
+	text-align: right;
+}
+
+#register .col-4 h1{
+	margin-bottom: 5px;
+}
+
+#register .col-4 p{
+	color: orange;
+	margin-top: 0;
+}
+
+#register .col-8 {
+	margin-top:  20px;
+}
+
 /* media queries *************************************/
 
 
