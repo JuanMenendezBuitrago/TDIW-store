@@ -12,7 +12,6 @@ abstract class Model {
 	}
 
 	abstract public function save();
-	abstract public function isValid();
-	abstract public function validate();
+	abstract public function isValid($field = null);
 	abstract public function attributesLabels();
 }
