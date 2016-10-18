@@ -17,6 +17,7 @@ abstract class Controller {
 
 	public function __construct($id) {
 		$this->_id = $id;
+		$this->bodyId = $id;
 		$this->_config = require(dirname(__FILE__)."/../config/main.php");
 		$this->_setPDO();
 	}
