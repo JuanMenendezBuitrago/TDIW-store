@@ -13,10 +13,10 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 		<link rel="icon" href="favicon.png">
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/webfonts.css">
-        <link rel="stylesheet" href="css/font-awesome.css">
-        <link rel="stylesheet" href="css/common.css">
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/webfonts.css">
+        <link rel="stylesheet" href="/css/font-awesome.css">
+        <link rel="stylesheet" href="/css/common.css">
         <?php echo $this->getStyles();?>
 
 		<!-- jQuery -->
@@ -24,8 +24,8 @@
 		<!-- holder.js crea imágenes de relleno para la etapa de diseño -->
         <script src="https://cdn.rawgit.com/imsky/holder/master/holder.js"  defer></script>
         <!-- custom code -->
-        <script src="js/common.js"  defer></script>
-        <script src="js/form.js"  defer></script>
+        <script src="/js/common.js"  defer></script>
+        <script src="/js/form.js"  defer></script>
         <?php echo $this->getScripts();?>
 
     </head>
