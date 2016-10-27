@@ -10,7 +10,7 @@ html, body{
 
 main{
 	overflow-x: hidden;
-	margin-top: 50px;
+	margin-top: 25px;
 }
 
 main .add{
@@ -218,6 +218,13 @@ label .required{
 	padding: 0 20px;
 }
 
+.form-group .error {
+	transition: all 0.3s ease 0s;
+	color: red;
+	display: none;
+	margin-top: 5px;
+}
+
 .form-control{
 	box-sizing: border-box;
 	line-height: 15px;
@@ -372,6 +379,12 @@ select.form-control{
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
 }
+.caret.right{
+    border-left: 4px dashed;
+    border-bottom: 4px solid transparent;
+    border-top: 4px solid transparent;
+
+}
 
 nav .container{
 	height: 100%;
@@ -486,6 +499,28 @@ nav ul.nav .dropdown li{
 	float: none;
 	text-align: left;
 }
+
+#search .form-control{
+	width: auto;
+	border-top:none;
+	border-left:none;
+	border-right:none;
+	box-shadow: none;
+	border-radius:0;
+}
+
+#search .fa{
+	margin-right: 5px;
+}
+
+nav .nav #search:hover i{
+	color: black;
+}
+
+nav .nav #search:hover{
+	background-color: white;
+}
+
 
 .backend nav{
 	background-color: #eee;
