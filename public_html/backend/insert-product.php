@@ -128,7 +128,6 @@
 			    			</div>
 			    			<div class="form-group">
 			    				<label for="">Estat</label>
-			    				<!-- fins a 100 caràcters -->
 			    				<label for="status-enabled"><input type="radio" class="form-control" name="status" id="status-enabled" value="1"> Actiu</label>
 			    				<label for="status-disabled"><input type="radio" class="form-control" name="status" id="status-disabled" value="0"> Cancel·lat</label>
 			    			</div>
