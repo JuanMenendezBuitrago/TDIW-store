@@ -1,0 +1,52 @@
+GET / 								->  index/index
+GET /registrat						->  user/register
+GET /producte/<category>  			->  product/list/category/<category>
+PUT /comanda/(inc|dec)/<id>/<id> 	->  order/update/orderid/<id>/productid/<id>/action/(inc|dec)
+PUT /comanda/<amount>/<id>/<id> 	->  order/update/orderid/<id>/productid/<id>/<amount>
+POST /login							->  user/login
+
+Esta es una lista de las peticiones REST que utilizaremos y la ruta hacia la que la redirigiremos
+
+* Product ----------------------------------------
+	GET
+		producte -> product/list 					(obtiene una lista de productos)
+		producte/<id> -> product/view/id/<id> 		(obtiene los detalles de un producto con id=<id>)
+	POST
+		producte -> product/create 					(crea un producto nuevo)
+	PUT
+		producte/<id> -> product/update/id/<id>		(edita un producto con id=<id>)
+	DELETE
+		producte/<id> -> product/delete/id/<id>		(elimina un producto con id=<id>)
+
+* User ----------------------------------------
+	GET
+		usuari -> user/list 						(obtiene una lista de usuarios)
+		usuari/<id> -> user/view/id/<id>			(obtiene los detalles de un usuario con id=<id>)
+	POST
+		usuari -> user/create						(crea/registra un usuario nuevo)
+	PUT
+		usuari/<id> -> user/update/id/<id>			(edita un usuario con id=<id>)
+	DELETE
+		usuari/<id> -> user/delete/id/<id>			(elimina un usario con id=<id>)
+
+* Category ----------------------------------------
+	GET
+		categoria -> category/list 					(obtiene una lista de categorias)
+		categoria/<id> -> category/view/id/<id>		(obtiene los detalles de una categoria)
+	POST
+		categoria -> category/create				(crea una categoria nueva)
+	PUT
+		categoria/<id> -> category/update/id/<id> 	(edita una categoria con id=<id>)
+	DELETE
+		categoria/<id> -> category/delete/id/<id> 	(elimina una categoria con id=<id>)
+
+* Order ----------------------------------------
+	GET
+		comanda -> order/list 						(obtiene una lista de pedidos)
+		comanda/<id> -> order/view/id/<id> 			(obtiene los detalles de un pedido con id=<id>)
+	POST
+		comanda -> order/create 					()
+	PUT
+		comanda/<id> -> order/update/id/<id>
+	DELETE
+		comanda/<id> -> order/delete/id/<id>
