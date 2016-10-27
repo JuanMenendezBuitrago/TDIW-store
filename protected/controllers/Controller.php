@@ -26,6 +26,10 @@ abstract class Controller {
 		$this->_pdo = new PDO(sprintf('mysql:host=%s;dbname=%s',$this->_config['db']['host'], $this->_config['db']['dbname']), $this->_config['db']['dbuser'], $this->_config['db']['password']);
 	}
 
+	protected function _checkToken() {
+		return isset($_POST['token']) && isset($_SESSION['token']) && $_POST['token'] == $_SESSION['token'];
+	}
+
 	public function getPDO() {
 		return $this->_pdo;
 	}
@@ -33,7 +37,7 @@ abstract class Controller {
 	public function getScripts(){
 		$result = '';
 		foreach ($this->scripts as $src) {
-			$result .="\t<script type=\"text/javascript\" src=\"".$this->_config['base_url']."/js/".$src."\"></script>\n\r";
+			$result .="\t<script type=\"text/javascript\" src=\"/js/".$src."\" defer></script>\n\r";
 		}
 		return $result;
 	}
@@ -249,5 +253,56 @@ abstract class Controller {
 		}
 
 		return $this->resolveViewFile($layoutName, $this->_config['layout_path']);
+	}
+
+	private function _getStatusCodeMessage($status)
+	{
+	    $codes = Array(
+	        200 => 'OK',
+	        400 => 'Bad Request',
+	        401 => 'Unauthorized',
+	        402 => 'Payment Required',
+	        403 => 'Forbidden',
+	        404 => 'Not Found',
+	        500 => 'Internal Server Error',
+	        501 => 'Not Implemented',
+	    );
+	    return (isset($codes[$status])) ? $codes[$status] : '';
+	}
+
+	protected function _sendJSONResponse($status = 200, $body) {
+	    // set the status
+	    $status_header = 'HTTP/1.1 ' . $status . ' ' . $this->_getStatusCodeMessage($status);
+	    header($status_header);
+	    // and the content type
+	    header('Content-type: application/json');
+	 
+	    // pages with body are easy
+	    if($body != ''){
+	        // send the body
+	        echo $body;
+	    }
+	    // we need to create the body if none is passed
+	    else {
+	        // create some body messages
+	        $message = '';
+	        switch($status)
+	        {
+	            case 401:
+	                $message = 'You must be authorized to view this page.';
+	                break;
+	            case 404:
+	                $message = 'The requested URL ' . $_SERVER['REQUEST_URI'] . ' was not found.';
+	                break;
+	            case 500:
+	                $message = 'The server encountered an error processing your request.';
+	                break;
+	            case 501:
+	                $message = 'The requested method is not implemented.';
+	                break;
+	        }
+	        echo json_encode(array('message' => $message));
+	    }
+	    exit();
 	}
 }

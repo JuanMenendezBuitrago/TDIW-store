@@ -25,7 +25,6 @@
         <script src="https://cdn.rawgit.com/imsky/holder/master/holder.js"  defer></script>
         <!-- custom code -->
         <script src="/js/common.js"  defer></script>
-        <script src="/js/form.js"  defer></script>
         <?php echo $this->getScripts();?>
 
     </head>
@@ -34,7 +33,7 @@
 	    	<nav>
 	    		<div class="container">
 	    			<ul class="nav">
-	    				<li><a href="#"><i class="fa fa-home"></i>inici</a></li>
+	    				<li><a href="/"><i class="fa fa-home"></i>inici</a></li>
 	    				<li class="dropdown-toggle"><a href="ayuda.html">productes<i class="caret"></i></a>
 							<ul class="dropdown">
 								<li><a href="#">foo</a></li>
@@ -42,9 +41,10 @@
 								<li><a href="#">baz</a></li>
 							</ul>
 						</li>
+						<li id="search"><i class="fa fa-search"></i><i class="caret right"></i><input type="text" class="form-control"></a></li>
 	    			</ul>
 	    			<ul class="nav login">
-	    				<li><a href="#">registra't</a></li>
+	    				<li><a href="/registrat">registra't</a></li>
 	    				<li class="dropdown-toggle"><a href="#"><i class="fa fa-user" aria-hidden="true"></i>entra<i class="caret"></i></a>
 							<ul class="dropdown">
 								<form action="">

@@ -17,31 +17,25 @@ class User extends Model {
 
 	public $errors = [];
 
+	public function __construct($pdo, $attributes=null){
+		$this->_pdo = $pdo;
+		if($attributes !== null)
+			$this->_massAssignment($this,$attributes);
+	}
+	
 	public function attributesLabels() {
 		return [
-			'id' => 'id',
+			'id'       => 'id',
 			'username' => 'nom de usuari',
-			'name' => 'nom i cognoms',
-			'email' => 'email',
+			'name'     => 'nom i cognoms',
+			'email'    => 'email',
 			'password' => 'contrasenya',
-			'phone' => 'telèfon',
-			'address' => 'adreça',
-			'city' => 'població',
-			'zip' => 'codi postal',
-			'cc' => 'targeta de crèdit',
+			'phone'    => 'telèfon',
+			'address'  => 'adreça',
+			'city'     => 'població',
+			'zip'      => 'codi postal',
+			'cc'       => 'targeta de crèdit',
 		];
-	}
-
-	public function isValid($field = null) {
-		if(!$this->_validated){
-			$this->validate();
-		}
-
-		if ($field == null) {
-			return $this->_validated && (sizeof($this->errors) == 0);
-		}
-
-		return $this->_validated && (sizeof($this->errors[$field]) == 0);
 	}
 
 	private function _validate() {
@@ -89,6 +83,11 @@ class User extends Model {
 		if (!preg_match("/\d{16}/", $this->cc)) {
 			$this->errors['cc'] = "Ha de contenir 16 dígits. Es un camp obligatori.";
 		}
+
+		// validate status
+		if (!preg_match("/[0-9]/", $this->status))  {
+			$this->errors['status'] = "Sencer entre 0 y 9.";
+		}	
 		
 		$this->_validated = true;
 	}
@@ -98,8 +97,8 @@ class User extends Model {
 			try {
 			    // set the PDO error mode to exception
 			    $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			    $sql = "INSERT INTO Users (username, name, email, password, phone, address, city, zip,cc) 
-			    		VALUES (:username, :name, :email, :password, :phone, :address, :city, :zip, :cc)";
+			    $sql = "INSERT INTO Users (username, name, email, password, phone, address, city, zip,cc, created, updated, status) 
+			    		VALUES (:username, :name, :email, :password, :phone, :address, :city, :zip, :cc, now(), now(), :status)";
 
 			    $stmt = $this->_pdo->prepare($sql);
 			    $stmt->bindParam(':username', $this->username, PDO::PARAM_STR); 
@@ -111,6 +110,7 @@ class User extends Model {
 			    $stmt->bindParam(':city', $this->city, PDO::PARAM_STR); 
 			    $stmt->bindParam(':zip', $this->zip, PDO::PARAM_STR); 
 			    $stmt->bindParam(':cc', $this->cc, PDO::PARAM_STR); 
+			    $stmt->bindParam(':status', $this->status, PDO::PARAM_STR); 
 			    $stmt->exec();
 			    echo "New record created successfully";
 			} catch(PDOException $e) {
@@ -127,7 +127,7 @@ class User extends Model {
 			    // set the PDO error mode to exception
 			    $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			    $sql = "UPDATE Users 
-			    		SET username = :username, name = :name, email = :email, password = :password, phone = :phone, address = :address, city =:city, zip = :zip, cc = :cc
+			    		SET username = :username, name = :name, email = :email, password = :password, phone = :phone, address = :address, city =:city, zip = :zip, cc = :cc, updated = now() , status = :status
 			    		WHERE id = :id";
 
 			    $stmt = $this->_pdo->prepare($sql);
@@ -140,6 +140,7 @@ class User extends Model {
 			    $stmt->bindParam(':city', $this->city, PDO::PARAM_STR); 
 			    $stmt->bindParam(':zip', $this->zip, PDO::PARAM_STR); 
 			    $stmt->bindParam(':cc', $this->cc, PDO::PARAM_STR); 
+			    $stmt->bindParam(':status', $this->status, PDO::PARAM_STR); 
 			    $stmt->bindParam(':id', $this->id, PDO::PARAM_STR); 
 			    $stmt->exec();
 			    echo "New record created successfully";

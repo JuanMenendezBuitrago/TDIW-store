@@ -1,5 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/Controller.php');
+require_once(dirname(__FILE__).'/../models/Category.php');
 
 class IndexController extends Controller {
 
