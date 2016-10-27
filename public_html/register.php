@@ -92,7 +92,7 @@
 	    		<div class="row">
 	    			<div class="col-4">
 	    				<h1>Registra't</h1>
-	    				<p>Els camp marcats amb * son obligatoris</p>
+	    				<p>Els camps marcats amb * son obligatoris</p>
 	    			</div>
 	    			<div class="col-8">
 				   		<form action="">
@@ -124,7 +124,7 @@
 			    			<div class="form-group">
 			    				<label for="phone">Telèfon</label>
 			    				<!-- 9 dígits -->
-			    				<input type="text" class="form-control" name="phone" id="phone" pattern="\s{9}" title="Camp amb 9 dígits." required>
+			    				<input type="text" class="form-control" name="phone" id="phone" pattern="\d{9}" title="Camp amb 9 dígits." required>
 			    			</div>
 			    			<div class="form-group">
 			    				<label for="address">Adreça</label>
