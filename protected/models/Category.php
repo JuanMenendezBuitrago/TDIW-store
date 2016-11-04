@@ -9,10 +9,8 @@ class Category extends Model {
 	public $description;
 	public $status;
 
-	public $errors = [];
-
-	public function __construct($pdo, $attributes=null){
-		$this->_pdo = $pdo;
+	public function __construct($attributes=null){
+		$this->_pdo = $GLOBALS['pdo'];
 		if($attributes !== null)
 			$this->_massAssignment($this,$attributes);
 	}
@@ -20,26 +18,26 @@ class Category extends Model {
 	public function attributesLabels() {
 		return [
 			'id'          => 'id',
-			'username'    => 'nom de categoria',
+			'name'    => 'nom de categoria',
 			'description' => 'descripció',
 			'status'      => 'estat',
 		];
 	}
 
-	private function _validate() {
+	protected function _validate($scenario) {
 		// validate name
 		if (!preg_match("/((?![-_+.,!@#$%^&*();\\/|<>'\u0022])\D){1,32}/", $this->username)) {
-			$this->errors['name'] = "Camp alfanumèric. Màxim 32 caracters. Es un camp obligatori.";
+			$this->_addError('name', "Camp alfanumèric. Màxim 32 caracters. Es un camp obligatori.");
 		}
 
 		// validate description
 		if (!preg_match("/[\s\S]{0,128}/", $this->description))  {
-			$this->errors['description'] = "Camp de text de 128 caracters màxim.";
+			$this->_addError('description', "Camp de text de 128 caracters màxim.");
 		}
 
 		// validate status
 		if (!preg_match("/[0-9]/", $this->status))  {
-			$this->errors['status'] = "Sencer entre 0 y 9.";
+			$this->_addError('status', "Sencer entre 0 y 9.");
 		}	
 		
 		$this->_validated = true;
@@ -57,7 +55,7 @@ class Category extends Model {
 			    $stmt->bindParam(':name', $this->name, PDO::PARAM_STR); 
 			    $stmt->bindParam(':description', $this ->description, PDO::PARAM_STR); 
 			    $stmt->bindParam(':status', $this->status, PDO::PARAM_STR); 
-			    $stmt->exec();
+			    $stmt->execute();
 			    echo "New record created successfully";
 			} catch(PDOException $e) {
 			    echo $sql . "<br>" . $e->getMessage();
@@ -81,7 +79,7 @@ class Category extends Model {
 			    $stmt->bindParam(':description', $this->description, PDO::PARAM_STR); 
 			    $stmt->bindParam(':status', $this->status, PDO::PARAM_STR); 
 			    $stmt->bindParam(':id', $this->id, PDO::PARAM_STR); 
-			    $stmt->exec();
+			    $stmt->execute();
 			    echo "Record updated successfully";
 			} catch(PDOException $e) {
 			    echo $sql . "<br>" . $e->getMessage();
