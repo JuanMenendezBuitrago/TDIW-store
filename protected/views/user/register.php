@@ -1,4 +1,4 @@
-    	<main>
+    	
 	    	<div class="container">
 	    		<div class="row">
 	    			<div class="col-4">
@@ -7,29 +7,28 @@
 	    			</div>
 	    			<div class="col-8">
 				   		<form action="/usuari" method="post">
-				   			<input type="hidden" name="token" value="<?php echo $token; ?>">
 			    			<div class="form-group">
 			    				<label for="name">Nom</label>
 			    				<!-- camp amb només caràcters i espais -->
 			    				<input type="text" class="form-control" name="name" id="name" pattern="((?![-_+.,!@#$%^&*();\\/|<>'\u0022])\D)+" title="Camp amb només caràcters i espais." required>
-	<div class="error"></div>
+								<div class="error"></div>
 			    			</div>
 			    			<div class="form-group">
-			    				<label for="user">Usuari</label>
+			    				<label for="username">Usuari</label>
 			    				<!-- camp alfanumèric sense espais -->
-			    				<input type="text" class="form-control" name="user" id="user" pattern="([^\s])+" title="Camp alfanumèric sense espais." required>
+			    				<input type="text" class="form-control" name="username" id="username" pattern="([^\s])+" title="Camp alfanumèric sense espais." required>
 			    				<div class="error"></div>
 			    			</div>
 			    			<div class="form-group">
-			    				<label for="passwd">Password</label>
+			    				<label for="password">Password</label>
 			    				<!-- camp alfanumèric -->
-			    				<input type="password" class="form-control" name="passwd" id="passwd" maxlength="30" title="Camp alfanumèric amb 30 caracters màxim." required>
+			    				<input type="password" class="form-control" name="password" id="password" maxlength="30" title="Camp alfanumèric amb 30 caracters màxim." required>
 			    				<div class="error"></div>
 			    			</div>
 			    			<div class="form-group">
-			    				<label for="passwd2">Confirma el password</label>
+			    				<label for="password2">Confirma el password</label>
 			    				<!-- camp alfanumèric -->
-			    				<input type="password" class="form-control" name="passwd2" id="passwd2" maxlength="30" title="Camp alfanumèric amb 30 caracters màxim." required>
+			    				<input type="password" class="form-control" name="password2" id="password2" maxlength="30" title="Camp alfanumèric amb 30 caracters màxim." required>
 			    				<div class="error"></div>
 			    			</div>
 			    			<div class="form-group">
@@ -81,4 +80,3 @@
 	    		</div>
 	 
 	    	</div>
-    	</main>
