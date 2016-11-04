@@ -15,10 +15,8 @@ class User extends Model {
 	public $picture;
 	public $status;
 
-	public $errors = [];
-	
-	public function __construct($pdo, $attributes=null){
-		$this->_pdo = $pdo;
+	public function __construct($attributes=null){
+		$this->_pdo = $GLOBALS['pdo'];
 		if($attributes !== null)
 			$this->_massAssignment($this,$attributes);
 	}
@@ -38,57 +36,7 @@ class User extends Model {
 		];
 	}
 
-	private function _validate() {
-		// validate username
-		if (!preg_match("/((?![-_+.,!@#$%^&*();\\/|<>'\u0022])\D){1,128}/", $this->username)) {
-			$this->errors['username'] = "Camp alfanumèric. Màxim 128 caracters. Es un camp obligatori.";
-		}
-
-		// validate name
-		if (!preg_match("/([^\s]){1,32}/", $this->name))  {
-			$this->errors['name'] = "Només caracters i espais. Es un camp obligatori.";
-		}
-
-		// validate email
-		if (!preg_match("/^(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){255,})(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){65,}@)(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22))(?:\.(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-[a-z0-9]+)*\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-[a-z0-9]+)*)|(?:\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\]))$/iD", $this->email)) {
-			$this->errors['email'] = "Ha de contenir una adreça de correu valid. Es un camp obligatori.";
-		}
-
-		// validate password
-		if (!preg_match("/.{8,32}/", $this->password)) {
-			$this->errors['password'] = "Camp alfanumèric entre 8 y 32 caracters. Es un camp obligatori.";
-		}
-		
-		// validate phone
-		if (!preg_match("/\d{9}/", $this->phone)) {
-			$this->errors['phone'] = "Ha de contenir 9 dígits. Es un camp obligatori.";
-		}
-
-		// validate address
-		if (!preg_match("/.{1,30}/", $this->address)) {
-			$this->errors['address'] = "Pot contenir fins a 30 caràcters alfanumèrics. Es un camp obligatori.";
-		}
-
-		// validate city
-		if (!preg_match("/((?![-_+.,!@#$%^&*();\\/|<>'\u0022])\D){1,30}/", $this->city)) {
-			$this->errors['city'] = "Pot conteni fins a 30 caràcters i espais. Es un camp obligatori.";
-		}
-
-		// validate zip
-		if (!preg_match("/\d{5}/", $this->zip)) {
-			$this->errors['zip'] = "Ha de contenir 5 dígits. Es un camp obligatori.";
-		}
-
-		// validate cc
-		if (!preg_match("/\d{16}/", $this->cc)) {
-			$this->errors['cc'] = "Ha de contenir 16 dígits. Es un camp obligatori.";
-		}
-
-		// validate status
-		if (!preg_match("/[0-9]/", $this->status))  {
-			$this->errors['status'] = "Sencer entre 0 y 9.";
-		}	
-		
+	protected function _validate($scenario) {
 		$this->_validated = true;
 	}
 
@@ -110,7 +58,7 @@ class User extends Model {
 			    $stmt->bindParam(':stock', $this->stock, PDO::PARAM_STR); 
 			    $stmt->bindParam(':picture', $this->picture, PDO::PARAM_STR); 
 			    $stmt->bindParam(':status', $this->status, PDO::PARAM_STR); 
-			    $stmt->exec();
+			    $stmt->execute();
 			    echo "New record created successfully";
 			} catch(PDOException $e) {
 			    echo $sql . "<br>" . $e->getMessage();
