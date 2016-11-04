@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(__FILE__)."/../models/Category.php");
 
 abstract class Controller {
 
@@ -9,21 +10,17 @@ abstract class Controller {
 	public $menu=array();
 	public $breadcrumbs=array();
 
+	private $_config;
 	private $_id;
 	private $_pdo = null;
 	private $_pageTitle;
-	private $_config;
 
 
 	public function __construct($id) {
 		$this->_id = $id;
 		$this->bodyId = $id;
-		$this->_config = require(dirname(__FILE__)."/../config/main.php");
-		$this->_setPDO();
-	}
-
-	private function _setPDO() {
-		$this->_pdo = new PDO(sprintf('mysql:host=%s;dbname=%s',$this->_config['db']['host'], $this->_config['db']['dbname']), $this->_config['db']['dbuser'], $this->_config['db']['password']);
+		$this->_config = $GLOBALS['config'];
+		$this->_pdo = $GLOBALS['pdo'];
 	}
 
 	protected function _checkToken() {
@@ -37,7 +34,7 @@ abstract class Controller {
 	public function getScripts(){
 		$result = '';
 		foreach ($this->scripts as $src) {
-			$result .="\t<script type=\"text/javascript\" src=\"/js/".$src."\" defer></script>\n\r";
+			$result .= "\t".sprintf('<script type="text/javascript" src="%s/js/%s" defer></script>',$this->_config['base_url'],$src)."\n\r";
 		}
 		return $result;
 	}
@@ -45,7 +42,7 @@ abstract class Controller {
 	public function getStyles(){
 		$result = '';
 		foreach ($this->styles as $src) {
-        	$result .="\t<link rel=\"stylesheet\" href=\"".$this->_config['base_url']."/css/".$src."\">\n\r";
+        	$result .= "\t".sprintf('<link rel="stylesheet" href="%s/css/%s>',$this->_config['base_url'],$src)."\n\r";
 		}
 		return $result;
 	}
@@ -61,6 +58,15 @@ abstract class Controller {
 		else {
 			return ucfirst($this->getId());
 		}
+	}
+
+	public function getCategories() {
+		$category = new Category();
+		return $category->findAll();
+	}
+
+	public function getConfig() {
+		return $this->_config;
 	}
 
 	public function setPageTitle($value) {
@@ -303,6 +309,7 @@ abstract class Controller {
 	        }
 	        echo json_encode(array('message' => $message));
 	    }
+	    //unset($_SESSION['pdo']);
 	    exit();
 	}
 }
