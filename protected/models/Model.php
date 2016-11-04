@@ -9,17 +9,59 @@ abstract class Model {
 
 	protected $_isNewRecord;
 
+	// protected $_errors = array();
+	public $_errors = array();
 
-	public function isValid($field = null) {
+	protected function _addError($tag, $message) {
+		if(!isset($this->_errors[$tag])) {
+			$this->_errors[$tag] = array();
+		}
+		$this->_errors[$tag][] = $message;
+	}
+
+	public function getErrors($tag = null) {
+		// return all errors
+		if($tag === null) {
+			return $this->_errors;
+		}
+		// return specific errors
+		if(isset($this->_errors[$tag])) {
+			return $this->_errors[$tag];
+		}
+		// return nothing
+		return null;
+	}
+
+	public function hasErrors($tag = null) {
+		// return all errors
+		if($tag === null) {
+			return count($this->getErrors()) > 0;
+		}
+		// return specific errors
+		if(isset($this->_errors[$tag])) {
+			return count($this->getErrors($tag)) > 0;
+		}
+		return false;
+	}
+
+	public function setIsNewRecord($val) {
+		$this->_isNewRecord = $val;
+	}
+
+	public function getIsNewRecord() {
+		return $this->_isNewRecord;
+	}
+
+	public function isValid($scenario = [], $field = null) {
 		if(!$this->_validated){
-			$this->validate();
+			$this->_validate($scenario);
 		}
 
 		if ($field == null) {
-			return $this->_validated && (sizeof($this->errors) == 0);
+			return $this->_validated && (count($this->getErrors()) == 0);
 		}
 
-		return $this->_validated && (sizeof($this->errors[$field]) == 0);
+		return $this->_validated && (count($this->getErrors($field)) == 0);
 	}
 
 
@@ -33,13 +75,20 @@ abstract class Model {
 			$stmt->bindParam(':id', $id, PDO::PARAM_STR); 
 			$stmt->execute();
 
-			$result = $stmt->fetch(PDO::FETCH_ASSOC); 
+			if($result->rowCount() > 0) {
+				$result = $stmt->fetch(PDO::FETCH_ASSOC); 
+				$obj = new static($result);
+				$obj->setIsNewRecord(false);
+				return $obj;
+			}
+			else {
+				return null;
+			}
 			// $time = new DateTime($result['created'],new DateTimeZone('UTC'));
 			// $time->setTimeZone(new DateTimeZone('Europe/Madrid'));
-			return $result;
 			// return $sql;
 		} catch (PDOException $e) {
-			return $sql . "<br>" . $e->getMessage();
+			return false;
 		}
 			  
 
@@ -60,19 +109,25 @@ abstract class Model {
 		    $sql = "Select * from ".$this->_tableName.$condString; 
 
 		    $stmt = $this->_pdo->prepare($sql);
-		    foreach($conditions as $column => $value) {
-				$stmt->bindParam(':'.$column, $value, PDO::PARAM_STR); 
+		    if($conditions !== null) {
+			    foreach($conditions as $column => $value) {
+					$stmt->bindParam(':'.$column, $value, PDO::PARAM_STR); 
+			    }		    	
 		    }
 
 			$stmt->execute();
 
-			$result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-			// $time = new DateTime($result['created'],new DateTimeZone('UTC'));
-			// $time->setTimeZone(new DateTimeZone('Europe/Madrid'));
+			$result = [];
+			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+				$obj = new static($row);
+				$obj->setIsNewRecord(false);
+				$result[] = $obj;
+			}
+			$result = count($result)==0?null:$result;
 			return $result;
 			// return $sql;
 		} catch (PDOException $e) {
-			return $sql . "<br>" . $e->getMessage();
+			return false;
 		}
 	}
 
@@ -84,6 +139,8 @@ abstract class Model {
 		}
 	}
 
+
+	abstract protected function _validate($scenario);
 	abstract public function save();
 	abstract public function update();
 	abstract public function attributesLabels();
