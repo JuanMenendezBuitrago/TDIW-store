@@ -1,11 +1,11 @@
 <?php
 require_once(dirname(__FILE__).'/Controller.php');
-require_once(dirname(__FILE__).'/../models/Category.php');
+require_once(dirname(__FILE__).'/../models/Supplier.php');
 
-class CategoryController extends Controller {
+class SupplierController extends Controller {
 
 	public function __construct() {
-		parent::__construct('category');
+		parent::__construct('supplier');
 	}
 
 	/**
@@ -16,10 +16,10 @@ class CategoryController extends Controller {
 	public function actionCreate($params) {
 		switch($GLOBALS['request_method']){
 			case 'POST':
-				$category = new Category($_POST);
+				$supplier = new Supplier($_POST);
 				try{
-					$result = $category->save();
-					$this->_sendJSONResponse(200,  json_encode(array('result'=>$result)));
+					$result = $supplier->save();
+		        	$this->_sendJSONResponse(200,  json_encode(array('result'=>$result)));
 				}catch(PDOException $e) {
 					$this->_sendJSONResponse(200,  json_encode(array('dbError'=>$e->getMessage())));
 				}catch (ValidationException $e) {
@@ -33,16 +33,16 @@ class CategoryController extends Controller {
 				// add script for the registration script 
 				$this->scripts[] = "register-form.js";
 				
-				$category = new Category();
+				$supplier = new Supplier();
 				if(isset($params['id'])) {
 					try {
-						$category = $category->findById($params['id']);	
+						$supplier = $supplier->findById($params['id']);	
 					}
 					catch (PDOException $e) {
 
 					}
 				}
-				$this->render('update', array('category'=>$category, 'method'=>'post'));
+				$this->render('update', array('supplier'=>$supplier, 'method'=>'post'));
 				break;
 
 		}
@@ -57,11 +57,11 @@ class CategoryController extends Controller {
 		// deal with REST request
 		if($GLOBALS['request_method']=='PUT'){
 			parse_str(file_get_contents("php://input"),$_POST);
-			$category = new Category($_POST);
-			$category->id = $params['id'];
+			$supplier = new Supplier($_POST);
+			$supplier->id = $params['id'];
 			
 			try{
-				$result = $category->update();
+				$result = $supplier->update();
 	        	$this->_sendJSONResponse(200,  json_encode(array('result'=>$result)));
 			}catch(PDOException $e) {
 				$this->_sendJSONResponse(200,  json_encode(array('dbError'=>$e->getMessage())));
@@ -70,21 +70,22 @@ class CategoryController extends Controller {
 			}
 		}
 
+
 		// add id to body tag
 		$this->bodyId = "create";
 		$this->bodyClass = "form-page";
 		// add script for the registration script 
 		$this->scripts[] = "register-form.js";
 
-		$category = new Category();
+		$supplier = new Supplier();
 		if(isset($params['id'])) {
 			try {
-				$category = $category->findById($params['id']);	
+				$supplier = $supplier->findById($params['id']);	
 			}
 			catch (PDOException $e) {
 
 			}
 		}
-		$this->render('update', array('category'=>$category, 'method'=>'put'));
+		$this->render('update', array('supplier'=>$supplier, 'method'=>'put'));
 	}
 }

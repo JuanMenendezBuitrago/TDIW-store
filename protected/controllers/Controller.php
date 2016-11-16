@@ -5,6 +5,7 @@ abstract class Controller {
 
 	public $layout;
 	public $bodyId='';
+	public $bodyClass='';
 	public $scripts=array();
 	public $styles=array();
 	public $menu=array();
@@ -65,8 +66,14 @@ abstract class Controller {
 		return $category->findAll();
 	}
 
-	public function getConfig() {
-		return $this->_config;
+	public function getConfig($key=null) {
+		if ($key == null) {
+			return $this->_config;
+		}
+		if (isset($this->_config[$key])) {
+			return $this->_config[$key];
+		}
+		return null;
 	}
 
 	public function setPageTitle($value) {

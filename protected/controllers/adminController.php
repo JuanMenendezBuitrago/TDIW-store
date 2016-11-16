@@ -1,24 +1,24 @@
 <?php
 require_once(dirname(__FILE__).'/Controller.php');
-require_once(dirname(__FILE__).'/../models/Category.php');
+require_once(dirname(__FILE__).'/../models/Admin.php');
 
-class CategoryController extends Controller {
+class AdminController extends Controller {
 
 	public function __construct() {
-		parent::__construct('category');
+		parent::__construct('admin');
 	}
 
 	/**
-	 * Receive GET request or data via POST, create a new user with it and return a JSON response with the result.
+	 * Receive data via POST, create a new admin with it and return a JSON response with the result.
 	 * @param  array $params Data received via POST
 	 * @return void         
 	 */
 	public function actionCreate($params) {
 		switch($GLOBALS['request_method']){
 			case 'POST':
-				$category = new Category($_POST);
+				$admin = new Admin($_POST);
 				try{
-					$result = $category->save();
+					$result = $admin->save();		        	
 					$this->_sendJSONResponse(200,  json_encode(array('result'=>$result)));
 				}catch(PDOException $e) {
 					$this->_sendJSONResponse(200,  json_encode(array('dbError'=>$e->getMessage())));
@@ -32,23 +32,12 @@ class CategoryController extends Controller {
 				$this->bodyClass = "form-page";
 				// add script for the registration script 
 				$this->scripts[] = "register-form.js";
-				
-				$category = new Category();
-				if(isset($params['id'])) {
-					try {
-						$category = $category->findById($params['id']);	
-					}
-					catch (PDOException $e) {
 
-					}
-				}
-				$this->render('update', array('category'=>$category, 'method'=>'post'));
+				$admin = new Admin(); // empty admin
+				$this->render('update', array('admin'=>$admin, 'method'=>'post'));
 				break;
-
+			}
 		}
-		
-	}
-
 	/**
 	 * Render the update form.
 	 * @return void
@@ -57,11 +46,11 @@ class CategoryController extends Controller {
 		// deal with REST request
 		if($GLOBALS['request_method']=='PUT'){
 			parse_str(file_get_contents("php://input"),$_POST);
-			$category = new Category($_POST);
-			$category->id = $params['id'];
+			$admin = new Admin($_POST);
+			$admin->id = $params['id'];
 			
 			try{
-				$result = $category->update();
+				$result = $admin->update();
 	        	$this->_sendJSONResponse(200,  json_encode(array('result'=>$result)));
 			}catch(PDOException $e) {
 				$this->_sendJSONResponse(200,  json_encode(array('dbError'=>$e->getMessage())));
@@ -71,20 +60,20 @@ class CategoryController extends Controller {
 		}
 
 		// add id to body tag
-		$this->bodyId = "create";
+		$this->bodyId = "register";
 		$this->bodyClass = "form-page";
 		// add script for the registration script 
 		$this->scripts[] = "register-form.js";
 
-		$category = new Category();
+		$admin = new Admin();
 		if(isset($params['id'])) {
 			try {
-				$category = $category->findById($params['id']);	
+				$admin = $admin->findById($params['id']);	
 			}
 			catch (PDOException $e) {
 
 			}
 		}
-		$this->render('update', array('category'=>$category, 'method'=>'put'));
+		$this->render('update', array('admin'=>$admin, 'method'=>'put'));
 	}
 }
