@@ -1,7 +1,7 @@
 <?php
+require_once(dirname(__FILE__)."/../exceptions/validationException.php");
 
 abstract class Model {
-	protected $_tableName = '';
 
 	protected $_pdo = null;
 
@@ -10,8 +10,15 @@ abstract class Model {
 	protected $_isNewRecord;
 
 	// protected $_errors = array();
-	public $_errors = array();
+	private $_errors = array();
 
+	protected function _isInUse($attribute, $value) {
+        $result = $this->findAll([$attribute => $value]);
+		if (is_array($result) && count($result) > 0)
+            return true;
+        return $result;
+	}
+	
 	protected function _addError($tag, $message) {
 		if(!isset($this->_errors[$tag])) {
 			$this->_errors[$tag] = array();
@@ -66,33 +73,28 @@ abstract class Model {
 
 
 	public function findById($id) {
-		try {
-		    // set the PDO error mode to exception
-		    $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		    $sql = "Select * from ".$this->_tableName." WHERE id = :id"; 
+	    // set the PDO error mode to exception
+	    $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	    $sql = "Select * from ".$this->_tableName." WHERE id = :id"; 
 
-		    $stmt = $this->_pdo->prepare($sql);
-			$stmt->bindParam(':id', $id, PDO::PARAM_STR); 
-			$stmt->execute();
+	    $stmt = $this->_pdo->prepare($sql);
+		$stmt->bindParam(':id', $id, PDO::PARAM_STR); 
+		$stmt->execute();
 
-			if($result->rowCount() > 0) {
-				$result = $stmt->fetch(PDO::FETCH_ASSOC); 
-				$obj = new static($result);
-				$obj->setIsNewRecord(false);
-				return $obj;
-			}
-			else {
-				return null;
-			}
-			// $time = new DateTime($result['created'],new DateTimeZone('UTC'));
-			// $time->setTimeZone(new DateTimeZone('Europe/Madrid'));
-			// return $sql;
-		} catch (PDOException $e) {
-			return false;
+		if($stmt->rowCount() > 0) {
+			$result = $stmt->fetch(PDO::FETCH_ASSOC); 
+			$obj = new static($result);
+			$obj->setIsNewRecord(false);
+			return $obj;
 		}
-			  
-
+		else {
+			return null;
+		}
+		// $time = new DateTime($result['created'],new DateTimeZone('UTC'));
+		// $time->setTimeZone(new DateTimeZone('Europe/Madrid'));
+		// return $sql;
 	}
+
 	public function findAll($conditions = null) {
 		$condString = "";
 		if($conditions !== null){

@@ -6,6 +6,7 @@ class Category extends Model {
 
 	public $id;
 	public $name;
+	public $alias;
 	public $description;
 	public $status;
 
@@ -19,24 +20,50 @@ class Category extends Model {
 		return [
 			'id'          => 'id',
 			'name'    => 'nom de categoria',
+			'alias'    => 'alias',
 			'description' => 'descripció',
 			'status'      => 'estat',
 		];
 	}
 
-	protected function _validate($scenario) {
+	protected function _validate($scenario) {	
+		// validate id: the value must exist in the database
+		if (in_array($scenario, ['update']) && preg_match('/^\d+$/', $this->id)) {
+			$inUse = $this->_isInUse('id', $this->id);
+            if(!$inUse)
+                $this->_addError('id', "No existeix un proveidor registrat amb aquest id.");
+            elseif($inUse === false)
+                $this->_addError('id', "Error comprobando id.");
+		}
+
 		// validate name
-		if (!preg_match("/((?![-_+.,!@#$%^&*();\\/|<>'\u0022])\D){1,32}/", $this->username)) {
+		if (in_array($scenario, ['create','update']) && !preg_match('/^[\s\d\p{L}]{1,32}$/u', $this->name)) {
 			$this->_addError('name', "Camp alfanumèric. Màxim 32 caracters. Es un camp obligatori.");
 		}
 
+		// validate alias
+		if (in_array($scenario, ['create','update']) && !preg_match('/^[a-z0-9-]{1,32}$/', $this->alias)) {
+			$this->_addError('alias', "Camp alfanumèric. Màxim 32 caracters. Es un camp obligatori.");
+		}
+
+        if (in_array($scenario, ['create'])) {
+            $inUse = $this->_isInUse('alias', $this->alias);
+            if($inUse)
+                $this->_addError('alias', "Ja existeix un alias com aquest.");
+            elseif($inUse === false)
+                $this->_addError('alias', "Error comprobando alias.");
+        }
+
 		// validate description
-		if (!preg_match("/[\s\S]{0,128}/", $this->description))  {
+		if (in_array($scenario, ['create','update']) && !preg_match('/^[\s\S]{1,128}$/', $this->description))  {
 			$this->_addError('description', "Camp de text de 128 caracters màxim.");
 		}
 
+		// validate status 
+		if(in_array($scenario, ['create','update']) && !isset($this->status)) $this->status = '1';
+
 		// validate status
-		if (!preg_match("/[0-9]/", $this->status))  {
+		if (in_array($scenario, ['create','update']) && !preg_match("/[0-9]/", $this->status))  {
 			$this->_addError('status', "Sencer entre 0 y 9.");
 		}	
 		
@@ -44,48 +71,50 @@ class Category extends Model {
 	}
 
 	public function save() {
-		if ($this->isValid()) {
-			try {
-			    // set the PDO error mode to exception
-			    $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			    $sql = "INSERT INTO Categories (name, description, created, updated, status) 
-			    		VALUES (:name, description, now(), now(), :status)";
+		if ($this->isValid('create')) {
+		    // set the PDO error mode to exception
+		    $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		    $sql = "INSERT INTO {$this->_tableName} (name, alias, description, created, updated, status) 
+		    		VALUES (:name, :alias, :description, now(), now(), :status)";
 
-			    $stmt = $this->_pdo->prepare($sql);
-			    $stmt->bindParam(':name', $this->name, PDO::PARAM_STR); 
-			    $stmt->bindParam(':description', $this ->description, PDO::PARAM_STR); 
-			    $stmt->bindParam(':status', $this->status, PDO::PARAM_STR); 
-			    $stmt->execute();
-			    echo "New record created successfully";
-			} catch(PDOException $e) {
-			    echo $sql . "<br>" . $e->getMessage();
-			    }
+		    $stmt = $this->_pdo->prepare($sql);
+		    $stmt->bindParam(':name', $this->name, PDO::PARAM_STR); 
+		    $stmt->bindParam(':alias', $this->alias, PDO::PARAM_STR); 
+		    $stmt->bindParam(':description', $this ->description, PDO::PARAM_STR); 
+		    $stmt->bindParam(':status', $this->status, PDO::PARAM_STR); 
+		    $stmt->execute();
 
+			if($stmt->rowCount()==0) {
+		    	return null;
+		    }
+
+		    $this->id = $this->_pdo->lastInsertId();
+			return $this;
 		}
-		return true;
+		throw new ValidationException($this->getErrors(), "Category is not valid.");
 	}
 
 	public function update() {
-		if ($this->isValid()) {
-			try {
-			    // set the PDO error mode to exception
-			    $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			    $sql = "UPDATE Users 
-			    		SET name = :name, description = :description, status = :status, updated = now()
-			    		WHERE id = :id";
+		if ($this->isValid('update')) {
+		    // set the PDO error mode to exception
+		    $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		    $sql = "UPDATE {$this->_tableName} 
+		    		SET name = :name, alias = :alias, description = :description, status = :status, updated = now()
+		    		WHERE id = :id";
 
-			    $stmt = $this->_pdo->prepare($sql);
-			    $stmt->bindParam(':name', $this->name, PDO::PARAM_STR); 
-			    $stmt->bindParam(':description', $this->description, PDO::PARAM_STR); 
-			    $stmt->bindParam(':status', $this->status, PDO::PARAM_STR); 
-			    $stmt->bindParam(':id', $this->id, PDO::PARAM_STR); 
-			    $stmt->execute();
-			    echo "Record updated successfully";
-			} catch(PDOException $e) {
-			    echo $sql . "<br>" . $e->getMessage();
-			    }
+		    $stmt = $this->_pdo->prepare($sql);
+		    $stmt->bindParam(':name', $this->name, PDO::PARAM_STR); 
+		    $stmt->bindParam(':alias', $this->alias, PDO::PARAM_STR); 
+		    $stmt->bindParam(':description', $this->description, PDO::PARAM_STR); 
+		    $stmt->bindParam(':status', $this->status, PDO::PARAM_STR); 
+		    $stmt->bindParam(':id', $this->id, PDO::PARAM_STR); 
+		    $stmt->execute();
 
+		    if($stmt->rowCount()==0) {
+		    	return null;
+		    }
+		    return $this;
 		}
-		return true;
+		throw new ValidationException($this->getErrors(), "Cstegory is not valid.");
 	}
 }
