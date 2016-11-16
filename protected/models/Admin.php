@@ -5,6 +5,7 @@ require_once(dirname(__FILE__).'/../userID.php');
 class Admin extends Model {
 	protected $_tableName = 'admins';
 
+	public $id;
 	public $username;
 	public $email;
 	public $password;
@@ -98,8 +99,18 @@ class Admin extends Model {
 			$admin = $this->findAll(['username' => $this->username]);
 			if($admin == null)
 				return false;
-			if (password_verify($this->password,$admin[0]->encrypted_password))
-				return new UserID($admin[0]->id,$admin[0]->username,true);
+			else {
+				$password = $this->password;
+				$hash = $admin[0]->encrypted_password;
+				$verify = password_verify($password, $hash);
+				if ($verify){
+					$id = $admin[0]->id;
+					$username = $admin[0]->username;
+					$isAdmin = true;
+					$userId = new UserID($id, $username, $isAdmin);
+					return $userId;
+				}
+			}
 			return false;
 		} else {
 			throw new ValidationException($this->getErrors(), "User is not valid.");
