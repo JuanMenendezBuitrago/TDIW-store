@@ -45,6 +45,7 @@
 						<li id="search"><i class="fa fa-search"></i><i class="caret right"></i><input type="text" class="form-control"></a></li>
 	    			</ul>
 	    			<ul class="nav login">
+	    			<?php if($_SESSION['user']->id == 0): ?>
 	    				<li><a href="/registrat">registra't</a></li>
 	    				<li class="dropdown-toggle"><a href="#"><i class="fa fa-user" aria-hidden="true"></i>entra<i class="caret"></i></a>
 							<ul class="dropdown">
@@ -61,6 +62,22 @@
 								</form>
 							</ul>
 	    				</li>
+	    			<?php else: ?>
+	    				<li class="dropdown-toggle"><a href="#"><i class="fa fa-user" aria-hidden="true"></i><?php echo $_SESSION['user']->userName;?><i class="caret"></i></a>
+	    					<ul class="dropdown">
+	    					<?php if($_SESSION['user']->isAdmin): ?>
+								<li><a href="<?php echo $this->getConfig('base_url'); ?>/admin/usuari">usuari</a></li>
+								<li><a href="<?php echo $this->getConfig('base_url'); ?>/admin/producte">producte</a></li>
+								<li><a href="<?php echo $this->getConfig('base_url'); ?>/admin/categoria">categoria</a></li>
+								<li><a href="<?php echo $this->getConfig('base_url'); ?>/admin/proveidor">proveidor</a></li>
+								<li><a href="<?php echo $this->getConfig('base_url'); ?>/admin/comandes">comandes</a></li>
+							<?php endif; ?>
+								<li><a href="<?php echo $this->getConfig('base_url'); ?>/usuari/<?php echo $_SESSION['user']->id;?>">perfil</a></li>
+								<li><a href="<?php echo $this->getConfig('base_url'); ?>/comandes">comandes</a></li>
+								<li><a href="<?php echo $this->getConfig('base_url'); ?>/logout"><i class="fa fa-sign-out"></i>sortir</a></li>
+	    					</ul>
+						</li>
+	    			<?php endif; ?>
 	    				<li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"><span class="bubble"></span></i>cistell</a></li>
 	    			</ul>
 	    		</div>
