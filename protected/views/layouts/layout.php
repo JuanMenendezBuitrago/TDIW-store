@@ -13,22 +13,23 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 		<link rel="icon" href="favicon.png">
 
-        <link rel="stylesheet" href="<?php echo ($this->getConfig()['base_url']); ?>/css/normalize.css">
-        <link rel="stylesheet" href="<?php echo ($this->getConfig()['base_url']); ?>/css/webfonts.css">
-        <link rel="stylesheet" href="<?php echo ($this->getConfig()['base_url']); ?>/css/font-awesome.css">
-        <link rel="stylesheet" href="<?php echo ($this->getConfig()['base_url']); ?>/css/common.css">
+        <link rel="stylesheet" href="<?php echo $this->getConfig('base_url'); ?>/css/normalize.css">
+        <link rel="stylesheet" href="<?php echo $this->getConfig('base_url'); ?>/css/webfonts.css">
+        <link rel="stylesheet" href="<?php echo $this->getConfig('base_url'); ?>/css/font-awesome.css">
+        <link rel="stylesheet" href="<?php echo $this->getConfig('base_url'); ?>/css/common.css">
         <?php echo $this->getStyles();?>
 
 		<!-- jQuery -->
         <script src="http://code.jquery.com/jquery-1.12.4.min.js"  defer></script>
+        <script src="<?php echo $this->getConfig('base_url'); ?>/js/js.cookie.js"></script>
 		<!-- holder.js crea imágenes de relleno para la etapa de diseño -->
         <script src="https://cdn.rawgit.com/imsky/holder/master/holder.js"  defer></script>
         <!-- custom code -->
-        <script src="<?php echo ($this->getConfig()['base_url']); ?>/js/common.js"  defer></script>
+        <script src="<?php echo $this->getConfig('base_url'); ?>/js/common.js"  defer></script>
         <?php echo $this->getScripts();?>
 
     </head>
-    <body id="<?php echo $this->bodyId; ?>">
+    <body id="<?php echo $this->bodyId; ?>" class="<?php echo $this->bodyClass; ?>">
     	<header>
 	    	<nav>
 	    		<div class="container">
@@ -37,7 +38,7 @@
 	    				<li class="dropdown-toggle"><a href="ayuda.html">productes<i class="caret"></i></a>
 							<ul class="dropdown">
 							<?php foreach($this->getCategories() as $category): ?>
-								<li><a href="#"><?php echo $category->name; ?></a></li>
+								<li><a href="<?php echo $this->getConfig('base_url'); ?>/producte/<?php echo $category->alias; ?>"><?php echo $category->name; ?></a></li>
 							<?php endforeach; ?>
 							</ul>
 						</li>
@@ -47,20 +48,20 @@
 	    				<li><a href="/registrat">registra't</a></li>
 	    				<li class="dropdown-toggle"><a href="#"><i class="fa fa-user" aria-hidden="true"></i>entra<i class="caret"></i></a>
 							<ul class="dropdown">
-								<form action="">
+								<form action="/login">
 									<div class="form-group">
-										<input type="" class="form-control" placeholder="usuari">
+										<input type="text" class="form-control" name="username" id="username" placeholder="usuari" required>
 									</div>
 									<div class="form-group">
-										<input type="" class="form-control" placeholder="contrasenya">
+										<input type="password" class="form-control" name="password" id="password" placeholder="contrasenya" required>
 									</div>
 									<div class="form-group">
-										<button class="button">entra</button>
+										<button type="submit" class="button">entra</button>
 									</div>
 								</form>
 							</ul>
 	    				</li>
-	    				<li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"><span class="bubble">10</span></i>cistell</a></li>
+	    				<li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"><span class="bubble"></span></i>cistell</a></li>
 	    			</ul>
 	    		</div>
 	    	</nav>

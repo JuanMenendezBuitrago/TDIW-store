@@ -8,9 +8,53 @@ html, body{
 	padding: 0;
 }
 
+body {
+	background-color: #333;
+}
+
+/* progress bar */
+progress {
+    border: none;
+    margin-top: 10px;
+    width: 100%;
+}
+
+progress:not([value]) {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+/* select file button */
+input[type=file]::-webkit-file-upload-button {
+	box-sizing: border-box;
+	padding: 10px 20px;
+    border-radius: 0px;
+    border-style: solid;
+    background-color: green;
+    border-color: green;
+    color: white;
+	display: inline-block;
+    transition: all 0.5s ease 0s;
+    cursor: pointer;
+}
+
+input[type=file]::-webkit-file-upload-button:hover{
+	background-color: white;
+	color: green;
+	border-color: white;
+}
+
 main{
 	overflow-x: hidden;
 	margin-top: 25px;
+	background-color: #fff;
 }
 
 main .add{
@@ -202,12 +246,38 @@ nav .login button,
 }
 
 /* forms *****************************/
+#image-form-group{
+	display:flex;
+	flex-direction: row;
+	align-items: stretch;
+}
+
+#image-form-group div:first-of-type{
+	margin-top: 10px;
+	background-color: #eee;
+	text-align: center;
+}
+#image-form-group div.filled:first-of-type{
+	padding: 0;
+	background-color: transparent;
+}
+
+#image-form-group i{
+	font-size: 3em;
+	line-height: 100px;
+}
+
+#image-form-group img{
+	width: 100%;
+	display: none;
+}
 
 label{
 	display: block;
 	font-weight: bold;
 	margin-bottom: 5px;
 }
+
 label .required{
 	color: orange;
 }
@@ -234,6 +304,7 @@ label .required{
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
 }
 
+textarea:focus.form-control,
 input:focus.form-control{
 	background-color: white;
 	border-color: orange;
@@ -241,12 +312,21 @@ input:focus.form-control{
 }
 
 .form-control[type=text],
+.form-control[type=number],
 .form-control[type=password],
 .form-control[type=email],
 .form-control[type=file],
 textarea.form-control,
 select.form-control{
 	width: 100%;
+}
+.form-control[type=file]{
+	box-shadow: none;
+	border: none;
+}
+input[type=file] {
+	padding-left: 0;
+	padding-right: 0;
 }
 
 /* items *****************************/
@@ -667,27 +747,30 @@ footer a:hover{
 
 /* registration page *********************************/
 
-#register main > .container > .row{
+.form-page main > .container > .row{
 	margin-top:  40px;
 }
 
-#register .col-4{
+.form-page .col-4{
 	text-align: right;
 }
 
-#register .col-4 h1{
+.form-page .col-4 h1{
 	margin-bottom: 5px;
 }
 
-#register .col-4 p{
+.form-page .col-4 p{
 	color: orange;
 	margin-top: 0;
 }
 
-#register .col-8 {
+.form-page .col-8 {
 	margin-top:  20px;
 }
 
+.form-page #image-form-group .col-8 {
+	margin-top:  0px;
+}
 /* media queries *************************************/
 
 
