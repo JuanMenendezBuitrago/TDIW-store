@@ -5,7 +5,7 @@ class UserID {
 	public $userName = 'guest';
 	public $isAdmin  = false;
 
-	public function __construct__($id, $userName, $isAdmin) {
+	public function __construct($id, $userName, $isAdmin) {
 		$this->id       = $id;
 		$this->userName = $userName;
 		$this->isAdmin  = $isAdmin;
