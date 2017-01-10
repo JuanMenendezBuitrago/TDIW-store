@@ -12,6 +12,96 @@ body {
 	background-color: #333;
 }
 
+a{
+	color: black;
+	text-decoration: none;
+}
+
+#modal{
+	display: none;
+	padding: 30px;
+	background-color: white;
+	border-radius: 3px;
+	width: 50%;
+	/*max-height: calc(100% - 100px);*/
+	position: absolute;
+		top: 100px;
+		bottom: auto;
+		left: 50%;
+		right: auto;
+	transform: translate(-50%, 0);
+	z-index: 1010;
+}
+
+#modal h2{
+	margin-top: 0;
+}
+
+
+#admin-section .buttons,
+#modal .buttons{
+	margin: 15px -30px -30px -30px;
+	padding: 30px;
+	text-align: right;
+}
+
+#admin-section .buttons a{
+	margin-left: 10px;
+}
+
+#overlay {
+	display: none;
+	position: fixed;
+	    top: 0;
+	    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1000;
+    opacity: 0.7;
+    filter: alpha(opacity=0.7);
+}
+
+.blur{
+	filter: blur(5px);
+	-webkit-filter: blur(5px);
+}
+
+main #menu{
+	padding:0;
+	margin:0;
+}
+
+main #menu li{
+	padding: 10px 15px;
+	text-align: left;
+	list-style: none;
+	border-top: 1px solid #eee;
+}
+
+main #menu li:first-child{
+	border-top: none;
+}
+
+main #menu li.active{
+	font-weight: bold;
+	color:orange;
+}
+
+main #menu li:hover{
+	background-color: orange;
+	color: white;
+}
+
+main #menu a{
+	text-decoration: none;
+	color: inherit;
+}
+
+main #menu i{
+	float: right;
+}
+
 /* progress bar */
 progress {
     border: none;
@@ -113,11 +203,17 @@ nav .login button,
 .button{
 	text-transform: uppercase;
 }
+
 /* grid ******************************/
+
 .container{
 	width: 960px;
 	margin: 0 auto;
 	position: relative;
+}
+
+main .container{
+	min-height: 80vh;
 }
 
 .row::after{
@@ -131,12 +227,13 @@ nav .login button,
 	margin-right: -15px;
 }
 
-.flex{
+.flex {
 	display: -webkit-flex;
 	-webkit-flex-direction: row;
 	display: flex;
 	flex-direction: row;
 	align-items: stretch;
+	margin-bottom: 15px;
 }
 
 [class^='col-']{
@@ -269,7 +366,37 @@ nav .login button,
 
 #image-form-group img{
 	width: 100%;
-	display: none;
+	//display: none;
+}
+
+#search {
+	background-color: #eee;
+    margin: 5px 10px;
+    padding: 0 20px 0 10px;
+    border-radius: 20px;
+}
+
+#search i{
+	color: black;
+}
+
+#search input {
+	padding:0;
+	border: none;
+	background-color: transparent;
+	color: black;
+}
+#search .form-control{
+	width: auto;
+	border-top:none;
+	border-left:none;
+	border-right:none;
+	box-shadow: none;
+	border-radius:0;
+}
+
+#search .fa{
+	margin-right: 5px;
 }
 
 label{
@@ -288,7 +415,7 @@ label .required{
 	padding: 0 20px;
 }
 
-.form-group .error {
+.form-group div.error {
 	transition: all 0.3s ease 0s;
 	color: red;
 	display: none;
@@ -304,11 +431,16 @@ label .required{
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
 }
 
-textarea:focus.form-control,
-input:focus.form-control{
+main textarea:focus.form-control,
+main input:focus.form-control,
+.login input:focus.form-control{
 	background-color: white;
 	border-color: orange;
 	outline-color: orange;
+}
+#search input:focus.form-control{
+	border-color: transparent;
+	outline-color: transparent;
 }
 
 .form-control[type=text],
@@ -329,25 +461,81 @@ input[type=file] {
 	padding-right: 0;
 }
 
+.error{
+	color: red;
+}
+
+.success{
+	color: green;
+}
+
+span#result {
+    margin-left: 20px;
+    transition: all 1s ease;
+    opacity: 0;
+}
+
+span#result.visible {
+    margin-left: 30px;
+    opacity: 1;
+}
+
+.button .fa-spinner{
+	visibility: hidden;
+}
+
 /* items *****************************/
+
  .list main > .container{
  	margin: 40px auto;
  }
 
 .item{
-	margin-bottom: 15px;
 	padding: 10px;
 	border: 1px solid #eee;
 	border-radius: 3px;
+	position: relative;
+	height: 100%;
+	padding-bottom:110px;
+	transition: all 0.3s ease 0s;
 }
 
-.items .item{
-	cursor: pointer;
+.item img{
+	width: 100%;
+/*	height: auto;
+    width: auto;
+    max-width: 200px;
+    max-height: 200px;*/
+} 
+
+#modal .flex {
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+
+#modal .item{
+	border:none;
+}
+
+#modal .item p{
+	padding-left: 20px;
+} 
+
+
+#modal .label{
+	padding-right: 0;
+	text-align: right;
+	font-weight: bold;
 }
 
 .item:hover{
 	// cursor: pointer;
-	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+	// box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+	background-color: #eee;
+}
+
+#modal .item:hover{
+	background-color: transparent;
 }
 
 .item h3{
@@ -355,9 +543,12 @@ input[type=file] {
 }
 
 .item .price{
-	text-align: right;
-	font-size: 1.5em;
-	margin-bottom: 10px;
+    position: absolute;
+    bottom: 55px;
+    text-align: right;
+    font-size: 2em;
+    margin-bottom: 10px;
+    right: 10px;
 }
 
 .item .item-footer{
@@ -366,6 +557,9 @@ input[type=file] {
 	display:flex;
 	flex-direction:row;
 	align-items: stretch;
+	position: absolute;
+	bottom: 10px;
+	width: 100%;
 }
 
 .item .item-footer > div{
@@ -481,18 +675,18 @@ nav{
 }
 
 
-nav ul.nav{
+ul.nav{
 	margin:0;
 	padding: 0;
 	float: left;
 }
 
-nav ul.nav.login{
+ul.nav.login{
 	float: right;
 }
 
-nav ul.nav li{
-	position: relative;
+ul.nav li{
+	// position: relative;
 	color: #333;
 	float: left;
 	list-style: none;
@@ -505,38 +699,53 @@ nav ul.nav li{
 	text-align: center;
 }
 
-nav ul.nav.login li{
+ul.nav li.admin a{
 	/*float: right;*/
+	color: orange;
 }
 
-nav .nav li:hover{
+ul.nav li.admin{
+	background-color: #eee;
+}
+
+ul.nav li.admin:hover{
+	/*float: right;*/
+	background-color: orange;
+}
+ul.nav li.admin:hover a{
+	/*float: right;*/
+	color: white;
+}
+
+ul.nav li:hover{
 	background-color: #333;
 }
 
-nav .login li:hover{
+ul.login li:hover{
 	background-color: orange;
 }
 
-nav .nav li:hover>a{
+ul.nav li:hover>a{
 	color: #fff;
 }
 
-nav .nav a{
+ul.nav a{
 	transition: color 0.3s ease 0s;
 	text-decoration: none;
 	text-transform: uppercase;
 	color: inherit;
 }
 
-nav .login a{
+ul.login a{
 	color: orange;
 }
 
-nav .dropdown-toggle{
+.dropdown-toggle{
+	position: relative;
 	cursor: pointer;
 }
 
-nav .dropdown{
+.dropdown{
 	transition: visibility 0.3s linear, top 0.3s linear, opacity 0.3s linear;
 	position: absolute;
     top: 90%;
@@ -546,7 +755,7 @@ nav .dropdown{
     opacity: 0;
     float: left;
     min-width: 160px;
-    padding: 5px 0;
+    padding: 0;
     margin: 2px 0 0;
     font-size: 14px;
     text-align: left;
@@ -561,7 +770,7 @@ nav .dropdown{
     box-shadow: 0 6px 12px rgba(0,0,0,.175);
 }
 
-nav .login .dropdown{
+nav .login .dropdown.login{
 	padding-top:15px;
 }
 
@@ -569,37 +778,27 @@ nav .login .dropdown button{
 	width: 100%;
 }
 
-nav .dropdown.show{
+.dropdown.show{
 	visibility: visible;
 	opacity: 1;
 	top: 105%;
 }
 
-nav ul.nav .dropdown li{
+ul.dropdown li{
 	float: none;
 	text-align: left;
+	width: 100%;
 }
 
-#search .form-control{
-	width: auto;
-	border-top:none;
-	border-left:none;
-	border-right:none;
-	box-shadow: none;
-	border-radius:0;
-}
 
-#search .fa{
-	margin-right: 5px;
-}
 
-nav .nav #search:hover i{
-	color: black;
-}
+// nav .nav #search:hover i{
+// 	color: black;
+// }
 
-nav .nav #search:hover{
-	background-color: white;
-}
+// nav .nav #search:hover{
+// 	background-color: white;
+// }
 
 
 .backend nav{
@@ -643,6 +842,12 @@ nav .nav #search:hover{
 	border-color: white;
 }
 
+.button.red:hover{
+	background-color: white;
+	color: red;
+	border-color: white;
+}
+
 .button.gray:hover{
 	background-color: white;
 	color: #666;
@@ -657,6 +862,11 @@ nav .nav #search:hover{
 .button.pink{
 	border-color: pink;
 	background-color: pink;
+}
+
+.button.red{
+	border-color: red;
+	background-color: red;
 }
 
 .button.gray{
@@ -685,6 +895,9 @@ footer{
 	box-shadow: 0px 10px 5px -5px rgba(0, 0, 0, 0.5) inset;
 }
 
+footer .col-4{
+	text-align: left !important;
+}
 footer .fa-chevron-right{
 	font-size: 60%;
 	margin-right: 3px;
@@ -718,6 +931,7 @@ footer .logo img{
 
 footer ul{
 	margin: 0;
+	margin-right: 15px;
 	padding: 0;
 }
 
@@ -771,6 +985,92 @@ footer a:hover{
 .form-page #image-form-group .col-8 {
 	margin-top:  0px;
 }
+
+
+/* list in admin *************************************/
+.admin{
+	padding: 20px 0 40px 0;
+}
+#modal .flex.table{
+	flex-direction: row;
+}
+#modal .flex.table,
+#admin-section .flex {
+	margin-bottom: 0;
+	padding: 10px 0;
+}
+
+#modal .flex.table:nth-child(2n+3),
+#admin-section .flex:nth-child(2n+3){
+	background-color: #e5e5e5;
+}
+
+#modal .flex.table:nth-child(2n),
+#admin-section .flex:nth-child(2n){
+	background-color: #f1f1f1;
+}
+
+#total,
+#modal .flex.table:last-of-type,
+#admin-section .flex:last-of-type{
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+#admin-section #total,
+#total{
+	background-color: orange !important;
+	color: white;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+#modal .flex.table:first-of-type,
+#admin-section .flex:first-of-type{
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	text-align: center;
+	background-color: orange;
+	font-weight: bold;
+	color: white;
+	text-transform: uppercase;
+}
+
+#modal .flex:first-child .col1,
+#admin-section .flex:first-child .col2{
+	border-right: 2px solid white;
+}
+
+#modal .flex > div:last-child,
+#admin-section .flex > div:last-child{
+	text-align: right;
+}
+
+#modal .flex > div,
+#admin-section .flex > div{
+	padding: 0 10px;
+	flex-basis:0;
+	flex-grow:1;
+	text-align: center;
+}
+
+#modal .flex > div:nth-child(2),
+#admin-section .flex > div:nth-child(2){
+	flex-grow: 2;
+}
+
+#modal i,
+#admin-section i{
+	padding:0 3px;
+}
+#modal a:hover,
+#admin-section a:hover{
+	color: orange;
+}
+#modal .actions,
+#admin-section .actions{
+	text-align: right;	
+}
 /* media queries *************************************/
 
 
@@ -779,4 +1079,12 @@ footer a:hover{
 		width: 100%;
 		margin: 0;
 	}
+
+	#modal .item img{
+		height: auto;
+	    width: auto;
+	    max-width: 100%;
+	    max-height: 100%;
+	}
+
 }
